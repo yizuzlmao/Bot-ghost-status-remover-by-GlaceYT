@@ -37,7 +37,7 @@ app.listen(port, () => {
   console.log('\x1b[36m[ SERVER ]\x1b[0m', '\x1b[32m SH : http://localhost:' + port + ' ✅\x1b[0m');
 });
 
-const statusMessages = ["Watching Maliceware Tickets"];
+const statusMessages = ["Watching Federal.GG Tickets"];
 const statusTypes = [ 'dnd', 'idle'];
 let currentStatusIndex = 0;
 let currentTypeIndex = 0;
@@ -56,15 +56,23 @@ async function login() {
 
 function updateStatus() {
   const currentStatus = statusMessages[currentStatusIndex];
-  const currentType = statusTypes[currentTypeIndex];
   client.user.setPresence({
-    activities: [{ name: currentStatus, type: ActivityType.Custom }],
-    status: currentType,
+    activities: [
+      {
+        name: currentStatus,
+        type: ActivityType.Streaming,
+        url: "https://www.twitch.tv/your_channel_name", // Replace with a valid streaming URL
+      },
+    ],
+    status: "online",
   });
-  console.log('\x1b[33m[ STATUS ]\x1b[0m', `Updated status to: ${currentStatus} (${currentType})`);
+  console.log(
+    '\x1b[33m[ STATUS ]\x1b[0m',
+    `Updated status to: ${currentStatus} (Streaming)`
+  );
   currentStatusIndex = (currentStatusIndex + 1) % statusMessages.length;
-  currentTypeIndex = (currentTypeIndex + 1) % statusTypes.length;
 }
+
 
 function heartbeat() {
   setInterval(() => {
